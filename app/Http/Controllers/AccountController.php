@@ -23,7 +23,7 @@ class AccountController extends Controller
     public function Update(Requests\UpdateInfoRequest $request)
     {
         $userid = Auth::id();
-        DB::table('users')->where('id', '=', $userid)->update(array('name' => $request->get('name'), 'email' => $request->get('email') ));
+        DB::table('users')->where('id', '=', $userid)->update(array('name' => $request->get('name'), 'email' => $request->get('email')));
 
         return \Redirect::route('account')
             ->with('message', 'Your info has been updated!');
