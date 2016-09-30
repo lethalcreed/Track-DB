@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 
 
 class TrackController extends Controller
@@ -31,15 +32,16 @@ class TrackController extends Controller
 
     public function overview()
     {
-        $tracks = DB::table('tracks')->select('title', 'artist', 'remix', 'cover')->get();
+        $tracks = DB::table('tracks')->select('id', 'title', 'artist', 'remix', 'cover')->get();
 
         return view('track/overview', compact('tracks'));
     }
 
-    public function detail($TrackId)
+    public function detail()
     {
-        $track = DB::table('tracks')->where('id', '=', $TrackId->id);
+        $TrackId = Input::get('id');
+        $track = DB::table('tracks')->where('id', '=', $TrackId)->get();
 
-        return view('track/detail', compact('track'));
+        return view('track/detail', compact('track', 'TrackId'));
     }
 }

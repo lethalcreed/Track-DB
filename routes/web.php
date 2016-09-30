@@ -24,5 +24,5 @@ Route::post('/account', ['as' => 'update.info', 'uses' => 'AccountController@Upd
 
 Route::get('/addtrack', ['as' => 'track.add', 'uses' => 'TrackController@add']);
 Route::post('/addtrack', ['as' => 'track.store', 'uses' => 'TrackController@store']);
-Route::get('/overview', 'TrackController@overview');
+Route::get('/overview', ['as' => 'track.overview', 'uses' => 'TrackController@overview']);
 Route::get('/detail', ['as' => 'track.detail', 'uses' => 'TrackController@detail']);
