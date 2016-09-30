@@ -20,7 +20,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::get('/account', ['as' => 'account', 'uses' => 'AccountController@AccountInfo']);
-Route::post('/account', ['as' => 'update_info', 'uses' => 'AccountController@Update']);
+Route::post('/account', ['as' => 'update.info', 'uses' => 'AccountController@Update']);
 
-Route::get('/addtrack', ['as' => 'track_add', 'uses' => 'TrackController@add']);
-Route::post('/addtrack', ['as' => 'track_store', 'uses' => 'TrackController@store']);
+Route::get('/addtrack', ['as' => 'track.add', 'uses' => 'TrackController@add']);
+Route::post('/addtrack', ['as' => 'track.store', 'uses' => 'TrackController@store']);
+Route::get('/overview', 'TrackController@overview');
+Route::get('/detail', ['as' => 'track.detail', 'uses' => 'TrackController@detail']);

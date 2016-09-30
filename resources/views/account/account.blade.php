@@ -15,7 +15,7 @@
                         </div>
                     @endif
                     <div class="panel-body">
-                        {!! Form::model($user, ['route' => ['update_info', 'class' => 'form', $user->id]]) !!}
+                        {!! Form::model($user, ['route' => ['update.info', 'class' => 'form', $user->id]]) !!}
 
                         <div class="form-group">
                             {!! Form::label('Your username') !!}<br>

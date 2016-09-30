@@ -30,6 +30,7 @@ class AddTrackRequest extends FormRequest
             'length' => 'required',
             'bpm' => 'required',
             'h_key' => 'required',
+            'cover' => 'nullable',
         ];
     }
 }

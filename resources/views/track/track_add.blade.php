@@ -15,15 +15,15 @@
                         </div>
                     @endif
                     <div class="panel-body">
-                        {!! Form::open(array('route' => 'track_store', 'class' => 'form')) !!}
+                        {!! Form::open(array('route' => 'track.store', 'class' => 'form')) !!}
 
-                        <div class="form-group">
-                            {!! Form::label('Title') !!}<br>
-                            {!! Form::text('title') !!}
-                        </div>
                         <div class="form-group">
                             {!! Form::label('Artist') !!}<br>
                             {!! Form::text('artist') !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('Title') !!}<br>
+                            {!! Form::text('title') !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('Remix/edit') !!}<br>
@@ -41,6 +41,10 @@
                         <div class="form-group">
                             {!! Form::label('Harmonic Key') !!}<br>
                             {!! Form::text('h_key') !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('Cover url') !!}<br>
+                            {!! Form::text('cover') !!}
                         </div>
                         <div class="form-group">
 
