@@ -16,9 +16,9 @@
                             {{$track->artist}}
                             {{'-'}}
                             {{$track->title}}
-                            {{'('}}
+                            {{isset($track->remix) ? ' (' : ''}}
                             {{$track->remix}}
-                            {{')'}}
+                            {{isset($track->remix) ? ')' : ''}}
                         </div>
                     @endforeach
                 </div>
