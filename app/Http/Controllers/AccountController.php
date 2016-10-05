@@ -28,4 +28,9 @@ class AccountController extends Controller
         return \Redirect::route('account')
             ->with('message', 'Your info has been updated!');
     }
+
+    public function NotLoggedIn()
+    {
+        return view('auth/login_to_view');
+    }
 }

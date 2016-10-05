@@ -24,7 +24,22 @@ class TrackController extends Controller
     public function store(Requests\AddTrackRequest $request)
     {
         $user_id = Auth::id();
-        DB::table('tracks')->insert(array('title' => $request->title, 'artist' => $request->artist, 'remix' => $request->remix, 'length' => $request->length, 'bpm' => $request->bpm, 'h_key' => $request->h_key, 'cover' => $request->cover, 'user_id' => $user_id));
+        if ($request->remix !== '') {
+            $remix = ' (' . $request->remix . ')';
+        } else {
+            $remix = '';
+        }
+        if($request->version !== ''){
+            $version = '('.$request->version.')';
+        }else{
+            $version = '';
+        }
+        if($request->yt_url !== ''){
+            $yt_url = 'https://www.youtube.com/embed/'.$request->yt_url;
+        }else{
+            $yt_url ='';
+        }
+        DB::table('tracks')->insert(array('title' => $request->title, 'artist' => $request->artist, 'remix' => $remix, 'version' => $version, 'length' => $request->length, 'bpm' => $request->bpm, 'h_key' => $request->h_key, 'cover' => $request->cover, 'yt_url' => $yt_url, 'user_id' => $user_id));
 
         return \Redirect::route('track.add')
             ->with('message', 'Track added to the database, Thank you for contributing!');
@@ -39,9 +54,58 @@ class TrackController extends Controller
 
     public function detail()
     {
+        $UserId = Auth::id();
         $TrackId = Input::get('id');
         $track = DB::table('tracks')->where('id', '=', $TrackId)->get();
 
-        return view('track/detail', compact('track', 'TrackId'));
+        //Favorite system
+        if (Auth::check()) {
+            $fav_check = DB::table('track_fav')->where([
+                ['users_id', '=', $UserId],
+                ['tracks_id', '=', $TrackId],
+            ])->get();
+            
+        }
+
+        return view('track/detail', compact('track', 'TrackId', 'fav_check'));
     }
+
+    public function AddFavorite()
+    {
+        if (Auth::check()) {
+            $userid = Auth::id();
+            $TrackId = Input::get('id');
+            DB::table('track_fav')->insert(array('users_id' => $userid, 'tracks_id' => $TrackId));
+            return \Redirect::route('track.overview')
+                ->with('message', 'The track has been added to your favorites!');
+        } else {
+            return view('auth/login_to_view');
+        }
+    }
+
+    public function ViewFavorites()
+    {
+        if (Auth::check()) {
+            $UserId = Auth::id();
+            $fav_tracks = DB::table('track_fav')->join('tracks', 'track_fav.tracks_id', '=', 'tracks.id')
+                ->where('track_fav.users_id', '=', $UserId)->get();
+            return view('track/favorite_tracks', compact('fav_tracks'));
+        } else {
+            return view('auth/login_to_view');
+        }
+    }
+
+    public function RemoveFavorite()
+    {
+        if (Auth::check()) {
+            $userid = Auth::id();
+            $TrackId = Input::get('id');
+            DB::table('track_fav')->where(array('users_id' => $userid, 'tracks_id' => $TrackId))->delete();
+            return \Redirect::route('track.overview')
+                ->with('message', 'The track has been removed to your favorites!');
+        } else {
+            return view('auth/login_to_view');
+        }
+    }
+    
 }

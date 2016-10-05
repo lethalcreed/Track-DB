@@ -29,7 +29,10 @@
                             {!! Form::label('Remix/edit') !!}<br>
                             {!! Form::text('remix') !!}
                         </div>
-
+                        <div class="form-group">
+                            {!! Form::label('Version') !!}<br>
+                            {!! Form::text('version') !!}
+                        </div>
                         <div class="form-group">
                             {!! Form::label('Length') !!}<br>
                             {!! Form::time('length') !!}
@@ -45,6 +48,10 @@
                         <div class="form-group">
                             {!! Form::label('Cover url') !!}<br>
                             {!! Form::text('cover') !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('Youtube code (Only add the code after youtube.com?watch/v=)') !!}<br>
+                            {!! Form::text('yt_url') !!}
                         </div>
                         <div class="form-group">
 

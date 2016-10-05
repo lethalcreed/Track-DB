@@ -69,6 +69,12 @@
                                 <a href="{{ url('/account') }}">
                                     Account
                                 </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/favorite') }}">
+                                    Favorite tracks
+                                </a>
+                            </li>
                             <li>
                                 <a href="{{ url('/logout') }}"
                                    onclick="event.preventDefault();

@@ -20,7 +20,14 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::get('/account', ['as' => 'account', 'uses' => 'AccountController@AccountInfo']);
+Route::get('/notloggedin', ['as' => 'please.login', 'uses' => 'AccountController@NotLoggedIn']);
 Route::post('/account', ['as' => 'update.info', 'uses' => 'AccountController@Update']);
+
+
+Route::get('/favorite', ['as' => 'favorite.tracks', 'uses' => 'TrackController@ViewFavorites']);
+Route::get('/remove_favorite', ['as' => 'track.remove.favorite', 'uses' => 'TrackController@RemoveFavorite']);
+Route::get('/add_favorite', ['as' => 'track.add.favorite', 'uses' => 'TrackController@AddFavorite']);
+
 
 Route::get('/addtrack', ['as' => 'track.add', 'uses' => 'TrackController@add']);
 Route::post('/addtrack', ['as' => 'track.store', 'uses' => 'TrackController@store']);
