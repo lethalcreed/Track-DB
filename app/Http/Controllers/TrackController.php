@@ -89,7 +89,7 @@ class TrackController extends Controller
             $UserId = Auth::id();
             $fav_tracks = DB::table('track_fav')->join('tracks', 'track_fav.tracks_id', '=', 'tracks.id')
                 ->where('track_fav.users_id', '=', $UserId)->get();
-            return view('track/favorite_tracks', compact('fav_tracks'));
+            return view('account/favorite_tracks', compact('fav_tracks'));
         } else {
             return view('auth/login_to_view');
         }

@@ -13,16 +13,21 @@
                         {{Session::get('message')}}
                     </div>
                 @endif
-                <div class="row">
+                <div class="row" style="padding: 10px"><br>
                     @foreach($tracks->all() as $track)
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 overview">
                             <a href="{{Route('track.detail')}}?id={{$track->id}}"><img src="{{$track->cover}}"
-                                                                                       height="250" width="250"></a><br>
+                                                                                       height="100%"
+                                                                                       width="100%"></a><br>
+
                             {{$track->artist}}
                             {{'-'}}
-                            {{$track->title}}
-                            {{$track->remix}}
+                            @if($track->remix == '')
+                                {{$track_title = $track->title}}
+                            @else
+                                {{$track_title = $track->title . $track->remix}}
+                            @endif
                         </div>
                     @endforeach
                 </div>

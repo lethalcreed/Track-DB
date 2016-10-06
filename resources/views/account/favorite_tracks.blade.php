@@ -15,14 +15,12 @@
                 @endif
                 <div class="row">
                     @foreach($fav_tracks->all() as $track)
-                        <div class="col-md-4">
-                            <a href="{{Route('track.detail')}}?id={{$track->id}}"><img src="{{$track->cover}}"height="250" width="250"></a><br>
+                        <div class="col-md-4 overview">
+                            <a href="{{Route('track.detail')}}?id={{$track->id}}"><img src="{{$track->cover}}" height="100%" width="100%"></a><br>
                             {{$track->artist}}
                             {{'-'}}
                             {{$track->title}}
-                            {{isset($track->remix) ? ' (' : ''}}
                             {{$track->remix}}
-                            {{isset($track->remix) ? ')' : ''}}
                         </div>
                     @endforeach
                 </div>

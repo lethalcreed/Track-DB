@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ URL::asset('css/tracks.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -73,6 +74,11 @@
                             <li>
                                 <a href="{{ url('/favorite') }}">
                                     Favorite tracks
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/my_tracks') }}">
+                                    My tracks
                                 </a>
                             </li>
                             <li>

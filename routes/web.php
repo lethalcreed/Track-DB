@@ -27,7 +27,10 @@ Route::post('/account', ['as' => 'update.info', 'uses' => 'AccountController@Upd
 Route::get('/favorite', ['as' => 'favorite.tracks', 'uses' => 'TrackController@ViewFavorites']);
 Route::get('/remove_favorite', ['as' => 'track.remove.favorite', 'uses' => 'TrackController@RemoveFavorite']);
 Route::get('/add_favorite', ['as' => 'track.add.favorite', 'uses' => 'TrackController@AddFavorite']);
-
+Route::get('/my_tracks', ['as' => 'my.tracks', 'uses' =>  'AccountController@MyTracks']);
+Route::get('/my_tracks_edit', ['as' => 'tracks.edit.user', 'uses' => 'AccountController@MyTracksEdit']);
+Route::post('my_tracks_edit', ['as' => 'update.my.track', 'uses' => 'AccountController@UpdateTrack']);
+//Route::get('/tracks_edit', ['as' => 'tracks.edit.admin', 'uses' => 'AccountController@MyTracksEditAdmin']);
 
 Route::get('/addtrack', ['as' => 'track.add', 'uses' => 'TrackController@add']);
 Route::post('/addtrack', ['as' => 'track.store', 'uses' => 'TrackController@store']);

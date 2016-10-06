@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Add a new track</div>
+                    <div class="panel-heading">Update </div>
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -15,7 +15,7 @@
                         </div>
                     @endif
                     <div class="panel-body">
-                        {!! Form::open(array('route' => 'track.store', 'class' => 'form')) !!}
+                        {!! Form::model($Track, ['route' => ['update.my.track', 'class' => 'form']]) !!}
 
                         <div class="form-group">
                             {!! Form::label('Artist') !!}<br>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('Version') !!}<br>
-                            {!! Form::text('version', 'Original Mix') !!}
+                            {!! Form::text('version') !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('Length') !!}<br>
@@ -50,12 +50,12 @@
                             {!! Form::text('cover') !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('Youtube code (Only add the code after youtube.com?watch/v=)') !!}<br>
+                            {!! Form::label('Youtube url') !!}<br>
                             {!! Form::text('yt_url') !!}
                         </div>
+                            {!! Form::hidden('id', $Track->id) !!}
                         <div class="form-group">
-
-                            {!! Form::submit('Add track', array('class' => 'btn btn-primary')) !!}
+                            {!! Form::submit('Save', array('class' => 'btn btn-primary')) !!}
                         </div>
                         {!! Form::close() !!}
                     </div>
