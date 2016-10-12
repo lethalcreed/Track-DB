@@ -46,6 +46,10 @@
                             {!! Form::text('h_key') !!}
                         </div>
                         <div class="form-group">
+                            {!! Form::label('Genre') !!}<br>
+                            {!! Form::select('Genre', array('none' => 'None', $genre[0]->id => $genre[0]->genre, $genre[1]->id => $genre[1]->genre, $genre[2]->id => $genre[2]->genre, $genre[3]->id => $genre[3]->genre, $genre[4]->id => $genre[4]->genre)) !!}
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('Cover url') !!}<br>
                             {!! Form::text('cover') !!}
                         </div>

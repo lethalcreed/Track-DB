@@ -15,7 +15,8 @@ class TrackController extends Controller
     public function add()
     {
         if (Auth::check()) {
-            return view('track/track_add');
+            $genre = DB::table('genre')->get();
+            return view('track/track_add', compact('genre'));
         } else {
             return view('auth/login_to_view');
         }
@@ -29,45 +30,53 @@ class TrackController extends Controller
         } else {
             $remix = '';
         }
-        if($request->version !== ''){
-            $version = '('.$request->version.')';
-        }else{
+        if ($request->version !== '') {
+            $version = '(' . $request->version . ')';
+        } else {
             $version = '';
         }
-        if($request->yt_url !== ''){
-            $yt_url = 'https://www.youtube.com/embed/'.$request->yt_url;
-        }else{
-            $yt_url ='';
+        if ($request->yt_url !== '') {
+            $yt_url = 'https://www.youtube.com/embed/' . $request->yt_url;
+        } else {
+            $yt_url = '';
         }
         DB::table('tracks')->insert(array('title' => $request->title, 'artist' => $request->artist, 'remix' => $remix, 'version' => $version, 'length' => $request->length, 'bpm' => $request->bpm, 'h_key' => $request->h_key, 'cover' => $request->cover, 'yt_url' => $yt_url, 'user_id' => $user_id));
-
+        $GenreTagInfo = DB::TABLE('tracks')->select('id')->where([
+            ['title', '=', $request->title],
+            ['user_id', '=', $user_id],
+        ])->first();
+        DB::table('genre_track')->insert(array('genre_id' => $request->Genre, 'tracks_id' => $GenreTagInfo->id));
         return \Redirect::route('track.add')
             ->with('message', 'Track added to the database, Thank you for contributing!');
     }
 
     public function overview()
     {
+        $selected = 'none';
         $tracks = DB::table('tracks')->select('id', 'title', 'artist', 'remix', 'cover')->get();
+        $genre = DB::table('genre')->get();
 
-        return view('track/overview', compact('tracks'));
+        return view('track/overview', compact('tracks', 'genre', 'selected'));
     }
 
     public function detail()
     {
         $UserId = Auth::id();
         $TrackId = Input::get('id');
-        $track = DB::table('tracks')->where('id', '=', $TrackId)->get();
+        $track = DB::table('tracks')->where('id', '=', $TrackId)->first();
+        $genre = DB::table('genre_track')->join('genre', 'genre_track.genre_id', '=', 'genre.id')
+        ->where('genre_track.tracks_id', '=', $TrackId)->first();
 
         //Favorite system
         if (Auth::check()) {
             $fav_check = DB::table('track_fav')->where([
                 ['users_id', '=', $UserId],
                 ['tracks_id', '=', $TrackId],
-            ])->get();
-            
+            ])->first();
+
         }
 
-        return view('track/detail', compact('track', 'TrackId', 'fav_check'));
+        return view('track/detail', compact('track', 'TrackId', 'fav_check', 'genre'));
     }
 
     public function AddFavorite()
@@ -107,5 +116,17 @@ class TrackController extends Controller
             return view('auth/login_to_view');
         }
     }
-    
+
+    public function OverviewGenre(Request $request)
+    {
+        $selected = $request->Genre;
+        if ($request->Genre == 'none') {
+            return \Redirect::route('track.overview');
+        } else {
+            $tracks = DB::table('genre_track')->join('tracks', 'genre_track.tracks_id', '=', 'tracks.id')
+                ->where('genre_track.genre_id', '=', $request->Genre)->get();
+            $genre = DB::table('genre')->get();
+            return view('track/overview', compact('tracks', 'genre', 'selected'));
+        }
+    }
 }

@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Track-DB') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/tracks.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
@@ -104,6 +104,6 @@
 @yield('content')
 
         <!-- Scripts -->
-<script src="/js/app.js"></script>
+<script src="{{ URL::asset('js/app.js') }}"></script>
 </body>
 </html>

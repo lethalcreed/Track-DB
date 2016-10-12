@@ -49,16 +49,18 @@ class AccountController extends Controller
     public function MyTracksEdit()
     {
         if (Auth::check()) {
-
             $TrackId = Input::get('id');
             $UserId = Auth::id();
             $Track = DB::table('tracks')->where('id', '=', $TrackId)->first();
+            $genre = DB::table('genre')->get();
+            $Selected = DB::table('genre_track')->join('genre', 'genre_track.genre_id', '=', 'genre.id')
+                ->where('genre_track.tracks_id', '=', $TrackId)->get();
 
             if ($Track->user_id !== $UserId) {
                 return \Redirect::route('my.tracks')
                     ->with('message', 'This track is not yours!');
-            }else{
-            return view('account/edit_track', compact('Track'));
+            } else {
+                return view('account/edit_track', compact('Track', 'genre', 'Selected'));
             }
         } else {
             return view('auth/login_to_view');
@@ -68,6 +70,7 @@ class AccountController extends Controller
     public function UpdateTrack(Requests\UpdateTrackRequest $request)
     {
         DB::table('tracks')->where('id', '=', $request->id)->update(array('title' => $request->title, 'artist' => $request->artist, 'remix' => $request->remix, 'version' => $request->version, 'length' => $request->length, 'bpm' => $request->bpm, 'h_key' => $request->h_key, 'cover' => $request->cover, 'yt_url' => $request->yt_url));
+        DB::table('genre_track')->where('tracks_id', '=', $request->id)->update(array('genre_id' => $request->Genre));
 
         return \Redirect::route('my.tracks')
             ->with('message', 'Your track has been updated!');

@@ -6,7 +6,14 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Track overview</div>
+                    <div class="panel-heading">Track overview
+                        <div class="genre">
+                            {!! Form::open(array('route' => 'track.overview.genre', 'method' => 'post')) !!}
+                            {!! Form::select('Genre', array('none' => 'None', $genre[0]->id => $genre[0]->genre, $genre[1]->id => $genre[1]->genre, $genre[2]->id => $genre[2]->genre, $genre[3]->id => $genre[3]->genre, $genre[4]->id => $genre[4]->genre), $selected) !!}
+                            {!! Form::submit('Genre selecteren') !!}
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
                 </div>
                 @if(Session::has('message'))
                     <div class="alert alert-info">

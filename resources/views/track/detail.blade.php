@@ -7,15 +7,15 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        {{$track[0]->artist}}{{ ' - '}}{{$track[0]->title}}{{$track[0]->remix}}
+                        {{$track->artist}}{{ ' - '}}{{$track->title}}{{$track->remix}}
 
                         @if(Auth::check())
-                            @if(isset($fav_check[0]->tracks_id) && $fav_check[0]->tracks_id == $track[0]->id)
-                                <a href="{{Route('track.remove.favorite')}}?id={{$track[0]->id}}"><img
+                            @if(isset($fav_check->tracks_id) && $fav_check->tracks_id == $track->id)
+                                <a href="{{Route('track.remove.favorite')}}?id={{$track->id}}"><img
                                             src="images/favorite.png" height="25" width="25" style="float: right"></a>
                                 <br>
                             @else
-                                <a href="{{Route('track.add.favorite')}}?id={{$track[0]->id}}"><img
+                                <a href="{{Route('track.add.favorite')}}?id={{$track->id}}"><img
                                             src="images/non_favorite.png" height="25" width="25"
                                             style="float: right"></a><br>
                             @endif
@@ -29,7 +29,7 @@
                     <div class="panel panel-body">
                         <div class="col-md-5">
 
-                            <img src="{{$track[0]->cover}}" height="250" width="250">
+                            <img src="{{$track->cover}}" height="250" width="250">
                         </div>
                         <div class="col-md-6">
                             <table>
@@ -38,7 +38,7 @@
                                         Artist:
                                     </td>
                                     <td>
-                                        {{$track[0]->artist}}
+                                        {{$track->artist}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -46,7 +46,7 @@
                                         Title:
                                     </td>
                                     <td>
-                                        {{$track[0]->title}}
+                                        {{$track->title}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -54,7 +54,7 @@
                                         Remix:
                                     </td>
                                     <td>
-                                        {{$track[0]->remix}}
+                                        {{$track->remix}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -62,7 +62,7 @@
                                         Version:
                                     </td>
                                     <td>
-                                        {{$track[0]->version, 'Original Mix'}}
+                                        {{$track->version}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -70,7 +70,7 @@
                                         Length:
                                     </td>
                                     <td>
-                                        {{$track[0]->length}}
+                                        {{$track->length}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -78,7 +78,7 @@
                                         BPM:
                                     </td>
                                     <td>
-                                        {{$track[0]->bpm}}
+                                        {{$track->bpm}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -86,13 +86,21 @@
                                         Harmonic Key:
                                     </td>
                                     <td>
-                                        {{$track[0]->h_key}}
+                                        {{$track->h_key}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Genre:
+                                    </td>
+                                    <td>
+                                        {{$genre->genre}}
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="col-md-8"><br>
-                            <iframe width="100%" height="300" src="{{$track[0]->yt_url}}" frameborder="0" allowfullscreen></iframe>
+                            <iframe width="100%" height="300" src="{{$track->yt_url}}" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>

@@ -13,3 +13,7 @@
 .maxwidth{
     width:100%;
 }
+
+.genre{
+    float: right;
+}

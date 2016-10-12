@@ -35,4 +35,5 @@ Route::post('my_tracks_edit', ['as' => 'update.my.track', 'uses' => 'AccountCont
 Route::get('/addtrack', ['as' => 'track.add', 'uses' => 'TrackController@add']);
 Route::post('/addtrack', ['as' => 'track.store', 'uses' => 'TrackController@store']);
 Route::get('/overview', ['as' => 'track.overview', 'uses' => 'TrackController@overview']);
+Route::post('/overview', ['as' => 'track.overview.genre','uses' => 'TrackController@OverviewGenre']);
 Route::get('/detail', ['as' => 'track.detail', 'uses' => 'TrackController@detail']);

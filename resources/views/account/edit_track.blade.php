@@ -6,6 +6,8 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Update </div>
+
+                    {{$Selected}}
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -44,6 +46,10 @@
                         <div class="form-group">
                             {!! Form::label('Harmonic Key') !!}<br>
                             {!! Form::text('h_key') !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('Genre') !!}<br>
+                            {!! Form::select('Genre', array('none' => 'None', $genre[0]->id => $genre[0]->genre, $genre[1]->id => $genre[1]->genre, $genre[2]->id => $genre[2]->genre, $genre[3]->id => $genre[3]->genre, $genre[4]->id => $genre[4]->genre), $Selected[0]->id) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('Cover url') !!}<br>
