@@ -20,21 +20,23 @@
                         {{Session::get('message')}}
                     </div>
                 @endif
-                <div class="row" style="padding: 10px"><br>
+                <div class="row overview"><br>
                     @foreach($tracks->all() as $track)
 
-                        <div class="col-md-4 overview">
-                            <a href="{{Route('track.detail')}}?id={{$track->id}}"><img src="{{$track->cover}}"
-                                                                                       height="100%"
-                                                                                       width="100%"></a><br>
+                        <div class="col-md-4">
+                                <a href="{{Route('track.detail')}}?id={{$track->id}}"><img src="{{$track->cover}}"
+                                                                                           height="100%"
+                                                                                           width="100%"></a><br>
 
-                            {{$track->artist}}
-                            {{'-'}}
-                            @if($track->remix == '')
-                                {{$track_title = $track->title}}
-                            @else
-                                {{$track_title = $track->title . $track->remix}}
-                            @endif
+                                {{$track->artist}}
+                                {{'-'}}
+                                @if($track->remix == '')
+                                    {{$track_title = $track->title}}
+                                    <br>
+                                    <br>
+                                @else
+                                    {{$track_title = $track->title . $track->remix}}
+                                @endif
                         </div>
                     @endforeach
                 </div>
