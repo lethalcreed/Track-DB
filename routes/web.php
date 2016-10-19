@@ -23,6 +23,8 @@ Route::get('/account', ['as' => 'account', 'uses' => 'AccountController@AccountI
 Route::get('/notloggedin', ['as' => 'please.login', 'uses' => 'AccountController@NotLoggedIn']);
 Route::post('/account', ['as' => 'update.info', 'uses' => 'AccountController@Update']);
 
+Route::post('/search', 'SearchController@search');
+
 
 Route::get('/favorite', ['as' => 'favorite.tracks', 'uses' => 'TrackController@ViewFavorites']);
 Route::get('/remove_favorite', ['as' => 'track.remove.favorite', 'uses' => 'TrackController@RemoveFavorite']);
