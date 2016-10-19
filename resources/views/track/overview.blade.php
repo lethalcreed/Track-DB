@@ -24,7 +24,7 @@
                         {{Session::get('message')}}
                     </div>
                 @endif
-                <div class="row overview"><br>
+                <div class="row" id="overview"><br>
                     {{--@foreach($tracks->all() as $track)--}}
 
                         {{--<div class="col-md-4 track">--}}
