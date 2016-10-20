@@ -12,18 +12,32 @@ class SearchController extends Controller
     public function search()
     {
         $data = Request::capture()->all();
-        $searchQuery = $data['inputData'];
-        $tracks = DB::table('tracks')
-            ->where('tracks.artist', 'like', '%' . $searchQuery . '%')
-            ->orWhere('tracks.title', 'like', '%' . $searchQuery . '%')
-            ->orWhere('tracks.remix', 'like', '%' . $searchQuery . '%')
-            ->get();
-
-        $viewData = [
-            'searchQuery' => $searchQuery,
-            'tracks' => $tracks,
-        ];
-        
-        return $viewData;
+        print_r($data);
+//        $searchQuery = $data['searchInput'];
+//        $tagInput = $data['tagInput'];
+//
+//        if ($tagInput == 'none') {
+//            $tracks = DB::table('tracks')
+//                ->where('tracks.artist', 'like', '%' . $searchQuery . '%')
+//                ->orWhere('tracks.title', 'like', '%' . $searchQuery . '%')
+//                ->orWhere('tracks.remix', 'like', '%' . $searchQuery . '%')
+//                ->get();
+//        } else {
+//            $tracks = DB::table('genre_track')
+//                ->join('tracks', 'genre_track.tracks_id', '=', 'tracks.id')
+//                ->where('genre_track.genre_id', '=', $tagInput)
+//                ->where('tracks.artist', 'like', '%' . $searchQuery . '%')
+//                ->orWhere('tracks.title', 'like', '%' . $searchQuery . '%')
+//                ->orWhere('tracks.remix', 'like', '%' . $searchQuery . '%')
+//                ->get();
+//        }
+//
+//        $viewData = [
+//            'searchQuery' => $searchQuery,
+//            'tracks' => $tracks,
+//            'tagInput' => $tagInput,
+//        ];
+//
+//        return $viewData;
     }
 }

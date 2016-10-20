@@ -17,7 +17,7 @@ class AccountController extends Controller
             $user = Auth::user();
             return view('account/account', compact('user'));
         } else {
-            return view('auth/login_to_view');
+            return view('errors/login_to_view');
         }
     }
 
@@ -32,7 +32,7 @@ class AccountController extends Controller
 
     public function NotLoggedIn()
     {
-        return view('auth/login_to_view');
+        return view('errors/login_to_view');
     }
 
     public function MyTracks()
@@ -40,9 +40,14 @@ class AccountController extends Controller
         if (Auth::check()) {
             $id = Auth::id();
             $my_tracks = DB::table('tracks')->where('user_id', '=', $id)->get();
-            return view('account/my_tracks', compact('my_tracks'));
+
+            foreach ($my_tracks as $track) {
+                $favoritecount[$track->id] = DB::table('track_fav')->where('tracks_id', '=', $track->id)->count();
+            }
+
+            return view('account/my_tracks', compact('my_tracks', 'favoritecount'));
         } else {
-            return view('auth/login_to_view');
+            return view('errors/login_to_view');
         }
     }
 
@@ -63,7 +68,7 @@ class AccountController extends Controller
                 return view('account/edit_track', compact('Track', 'genre', 'Selected'));
             }
         } else {
-            return view('auth/login_to_view');
+            return view('errors/login_to_view');
         }
     }
 
@@ -73,7 +78,7 @@ class AccountController extends Controller
         DB::table('genre_track')->where('tracks_id', '=', $request->id)->update(array('genre_id' => $request->Genre));
 
         return \Redirect::route('my.tracks')
-            ->with('message', 'Your track has been updated!');
+            ->with('message', 'The track has been updated!');
 
     }
 }

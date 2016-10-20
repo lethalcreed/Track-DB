@@ -18,7 +18,7 @@ class TrackController extends Controller
             $genre = DB::table('genre')->get();
             return view('track/track_add', compact('genre'));
         } else {
-            return view('auth/login_to_view');
+            return view('errors/login_to_view');
         }
     }
 
@@ -88,7 +88,7 @@ class TrackController extends Controller
             return \Redirect::route('track.overview')
                 ->with('message', 'The track has been added to your favorites!');
         } else {
-            return view('auth/login_to_view');
+            return view('errors/login_to_view');
         }
     }
 
@@ -100,7 +100,7 @@ class TrackController extends Controller
                 ->where('track_fav.users_id', '=', $UserId)->get();
             return view('account/favorite_tracks', compact('fav_tracks'));
         } else {
-            return view('auth/login_to_view');
+            return view('errors/login_to_view');
         }
     }
 
@@ -113,7 +113,7 @@ class TrackController extends Controller
             return \Redirect::route('track.overview')
                 ->with('message', 'The track has been removed to your favorites!');
         } else {
-            return view('auth/login_to_view');
+            return view('errors/login_to_view');
         }
     }
 

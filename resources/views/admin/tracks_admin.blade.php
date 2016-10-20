@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Your added tracks</div>
+                    <div class="panel-heading">All tracks</div>
                     <div class="panel-body">
                         @if(Session::has('message'))
                             <div class="alert alert-info">
@@ -25,13 +25,13 @@
                                     Title:
                                 </td>
                                 <td>
+                                    Creator:
+                                </td>
+                                <td>
                                     {{--Edit button--}}
                                 </td>
                                 <td>
-                                    Favorites:
-                                </td>
-                                <td>
-                                    {{--Favorited by who link--}}
+                                    {{--Delete button--}}
                                 </td>
                             </tr>
                             @foreach($my_tracks->all() as $track)
@@ -47,15 +47,14 @@
                                         {{$track->remix}}
                                     </td>
                                     <td>
-                                        <a href="{{Route('tracks.edit.user')}}?id={{$track->id}}">Edit</a><br>
+                                        {{$track->name}}
+                                    </td>
+                                    <td>
+                                        <a href="{{Route('tracks.edit.admin')}}?id={{$track->id}}">Edit</a><br>
 
                                     </td>
                                     <td>
-                                        {{$favoritecount[$track->id]}}
-                                    </td>
-                                    <td>
-                                        <a href="#">Favorited by</a>
-                                    </td>
+                                        <a href="{{Route('tracks.delete.admin')}}?id={{$track->id}}">Delete</a><br></td>
                                 </tr>
                             @endforeach
                         </table>

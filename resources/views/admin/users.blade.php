@@ -6,55 +6,52 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Your added tracks</div>
+                    <div class="panel-heading">All users</div>
                     <div class="panel-body">
-                        @if(Session::has('message'))
-                            <div class="alert alert-info">
-                                {{Session::get('message')}}
-                            </div>
-                        @endif
                         <table class="table">
                             <tr>
                                 <td>
-                                    {{--Track image small--}}
+                                    Id:
                                 </td>
                                 <td>
-                                    Artist:
+                                    Name:
                                 </td>
                                 <td>
-                                    Title:
+                                    Email:
                                 </td>
                                 <td>
-                                    {{--Edit button--}}
+                                    Role:
                                 </td>
                                 <td>
-                                    Favorites:
+                                    Created:
                                 </td>
                                 <td>
-                                    {{--Favorited by who link--}}
+                                    Active:
                                 </td>
                             </tr>
-                            @foreach($my_tracks->all() as $track)
+                            @foreach($users->all() as $user)
                                 <tr>
                                     <td>
-                                        <img src="{{$track->cover}}" height="75" width="75">
+                                        {{$user->id}}
                                     </td>
                                     <td>
-                                        {{$track->artist}}
+                                        {{$user->name}}
                                     </td>
                                     <td>
-                                        {{$track->title}}
-                                        {{$track->remix}}
+                                        {{$user->email}}
                                     </td>
                                     <td>
-                                        <a href="{{Route('tracks.edit.user')}}?id={{$track->id}}">Edit</a><br>
+                                        {{$user->role}}
+                                    </td>
+                                    <td>{{$user->created_at}}
 
                                     </td>
                                     <td>
-                                        {{$favoritecount[$track->id]}}
-                                    </td>
-                                    <td>
-                                        <a href="#">Favorited by</a>
+                                        @if($user->active == 1)
+                                            <img src="images/active.png" height="39" width="70" class="toggle" id="{{$user->id}}">
+                                        @else
+                                            <img src="images/nonactive.png" height="39" width="70" class="toggle" id="{{$user->id}}">
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -66,6 +63,7 @@
             </div>
         </div>
     </div>
+    <script src="{{ URL::asset('js/toggle.js') }}"></script>
     </div>
 @endsection
 

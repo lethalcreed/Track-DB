@@ -1,9 +1,14 @@
+//      Tag functionality
+
+
 //      Search functionality
 
-window.addEventListener('input', function (e) {
-        // var textInput = document.getElementById('textInput');
-        // var selectInput = document.getElementById('selectInput');
+window.addEventListener('input', function () {
+var searchInput = document.getElementById('search');
+var tagInput = document.getElementById('genre');
 
+        console.log(searchInput.value);
+        console.log(tagInput.value);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -11,7 +16,7 @@ window.addEventListener('input', function (e) {
             type: "POST",
             url: '/search',
             dataType: 'JSON',
-            data: {inputData: e.target.value},
+            data: {searchInput: searchInput.value, tagInput: tagInput.value},
             success: function (data) {
                 console.log(data);
                 console.log("Ajax call passed");
@@ -21,7 +26,8 @@ window.addEventListener('input', function (e) {
                     if (data.tracks[i].remix == '') {
                         $('#overview').append(
                             '<div class="col-md-4">' +
-                            '<a href="{{Route("track.detail")}}?id=' +
+                            '<a href="' +
+                            '/detail?id=' +
                             data.tracks[i].id +
                             '">' +
                             '<img src="' +
@@ -41,7 +47,7 @@ window.addEventListener('input', function (e) {
                         $('#overview').append(
                             '<div class="col-md-4">' +
                             '<a href="' +
-                            'http://laravel.dev:8000/detail?id=' +
+                            'detail?id=' +
                             data.tracks[i].id +
                             '">' +
                             '<img src="' +
