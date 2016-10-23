@@ -45,5 +45,6 @@ Route::get('/edit_track', ['as' => 'tracks.edit.admin', 'uses' => 'AdminControll
 Route::post('/edit_track', ['as' => 'tracks.update.admin', 'uses' => 'AdminController@TracksUpdate']);
 Route::get('/tracks_admin', ['as' => 'tracks.admin', 'uses' => 'AdminController@Tracks']);
 
-Route::get('/delete_user', ['as' => 'users.delete.admin', 'uses' => 'AdminController@DeleteUser']);
+Route::post('/toggle', 'AdminController@toggle');
+
 Route::get('/users_admin', ['as' => 'users.admin', 'uses' => 'AdminController@Users']);

@@ -1,10 +1,20 @@
 var togglebutton = document.getElementsByClassName('toggle');
-console.log(togglebutton);
 
-for (var i = 0; i<togglebutton.length; i++){
-    togglebutton[i].addEventListener('click', function(e){
-        button = e.target;
+for (var i = 0; i<togglebutton.length; i++) {
+    togglebutton[i].addEventListener('click', function (e) {
+        var button = e.target;
 
-        console.log(button.id);
-    })
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST",
+            url: '/toggle',
+            data: {User_id: button.id},
+            success: function (data) {
+                button.src = data;
+            }
+        })
+    }, false);
+
 }

@@ -47,11 +47,13 @@
 
                                     </td>
                                     <td>
+                                        <div class="buttondiv">
                                         @if($user->active == 1)
                                             <img src="images/active.png" height="39" width="70" class="toggle" id="{{$user->id}}">
                                         @else
                                             <img src="images/nonactive.png" height="39" width="70" class="toggle" id="{{$user->id}}">
                                         @endif
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

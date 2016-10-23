@@ -20,7 +20,7 @@ class AdminController extends Controller
             $role = DB::table('users')->where('id', '=', $id)->first();
             if ($role->role == 1) {
                 $my_tracks = DB::table('tracks')->join('users', 'tracks.user_id', '=', 'users.id')->get();
-                
+
                 return view('admin/tracks_admin', compact('my_tracks'));
             } else {
                 return view('errors/unauthorized');
@@ -30,7 +30,7 @@ class AdminController extends Controller
         }
 
     }
-    
+
     public function TracksEdit()
     {
         if (Auth::check()) {
@@ -80,12 +80,13 @@ class AdminController extends Controller
         }
     }
 
-    public function Users(){
+    public function Users()
+    {
         if (Auth::check()) {
             $id = Auth::id();
             $role = DB::table('users')->where('id', '=', $id)->first();
             if ($role->role == 1) {
-                $users = DB::table('users')->get();
+                $users = DB::table('users')->where('role', '=', '2')->get();
 
                 return view('admin/users', compact('users'));
             } else {
@@ -96,22 +97,20 @@ class AdminController extends Controller
         }
     }
 
-    public function DeleteUser()
+    public function toggle()
     {
-        if (Auth::check()) {
-            $id = Auth::id();
-            $role = DB::table('users')->where('id', '=', $id)->first();
-            if ($role->role == 1) {
+        $data = Request::capture()->all();
 
-                
+        $state = DB::table('users')->where('id', '=', $data['User_id'])->first();
 
-                return \Redirect::route('users.admin')
-                    ->with('message', 'The user has been deleted!');
-            } else {
-                return view('errors/unauthorized');
-            }
+        if ($state->active == 1) {
+            DB::table('users')->where('id', '=', $data['User_id'])->update(array('active' => 0));
+            $toggleState = 'images/nonactive.png';
         } else {
-            return view('errors/unauthorized');
+            DB::table('users')->where('id', '=', $data['User_id'])->update(array('active' => 1));
+            $toggleState = 'images/active.png';
+
         }
-    }
+        return $toggleState;
+  }
 }
