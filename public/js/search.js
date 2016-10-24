@@ -1,14 +1,8 @@
-//      Tag functionality
-
-
 //      Search functionality
 
 window.addEventListener('input', function () {
-var searchInput = document.getElementById('search');
-var tagInput = document.getElementById('genre');
-
-        console.log(searchInput.value);
-        console.log(tagInput.value);
+        var searchInput = document.getElementById('search');
+        var tagInput = document.getElementById('genre');
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
