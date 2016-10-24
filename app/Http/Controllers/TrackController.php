@@ -35,12 +35,17 @@ class TrackController extends Controller
         } else {
             $version = '';
         }
+        if($request->cover == ''){
+            $cover = 'http://www.litlat.com/image/no_cover.png';
+        }else{
+            $cover = $request->cover;
+        }
         if ($request->yt_url !== '') {
             $yt_url = 'https://www.youtube.com/embed/' . $request->yt_url;
         } else {
             $yt_url = '';
         }
-        DB::table('tracks')->insert(array('title' => $request->title, 'artist' => $request->artist, 'remix' => $remix, 'version' => $version, 'length' => $request->length, 'bpm' => $request->bpm, 'h_key' => $request->h_key, 'cover' => $request->cover, 'yt_url' => $yt_url, 'user_id' => $user_id));
+        DB::table('tracks')->insert(array('title' => $request->title, 'artist' => $request->artist, 'remix' => $remix, 'version' => $version, 'length' => $request->length, 'bpm' => $request->bpm, 'h_key' => $request->h_key, 'cover' => $cover, 'yt_url' => $yt_url, 'user_id' => $user_id));
         $GenreTagInfo = DB::TABLE('tracks')->select('id')->where([
             ['title', '=', $request->title],
             ['user_id', '=', $user_id],
@@ -117,16 +122,15 @@ class TrackController extends Controller
         }
     }
 
-    public function OverviewGenre(Request $request)
-    {
-        $selected = $request->Genre;
-        if ($request->Genre == 'none') {
-            return \Redirect::route('track.overview');
-        } else {
-            $tracks = DB::table('genre_track')->join('tracks', 'genre_track.tracks_id', '=', 'tracks.id')
-                ->where('genre_track.genre_id', '=', $request->Genre)->get();
-            $genre = DB::table('genre')->get();
-            return view('track/overview', compact('tracks', 'genre', 'selected'));
-        }
+
+    public function FavoritedBy(){
+        $TrackId = Input::get('id');
+
+        $TrackFavorites = DB::table('track_fav')
+            ->join('users', 'track_fav.users_id', '=', 'users.id')
+            ->where('track_fav.tracks_id', '=', $TrackId)
+            ->get();
+
+        return view('track/FavoritedBy', compact('TrackFavorites'));
     }
 }

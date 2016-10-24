@@ -19,19 +19,24 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+//User routes
 Route::get('/account', ['as' => 'account', 'uses' => 'AccountController@AccountInfo']);
 Route::get('/notloggedin', ['as' => 'please.login', 'uses' => 'AccountController@NotLoggedIn']);
 Route::post('/account', ['as' => 'update.info', 'uses' => 'AccountController@Update']);
 
+//Search Route
 Route::post('/search', 'SearchController@search');
 
+//User Track routes
 Route::get('/favorite', ['as' => 'favorite.tracks', 'uses' => 'TrackController@ViewFavorites']);
 Route::get('/remove_favorite', ['as' => 'track.remove.favorite', 'uses' => 'TrackController@RemoveFavorite']);
 Route::get('/add_favorite', ['as' => 'track.add.favorite', 'uses' => 'TrackController@AddFavorite']);
 Route::get('/my_tracks', ['as' => 'my.tracks', 'uses' =>  'AccountController@MyTracks']);
 Route::get('/my_tracks_edit', ['as' => 'tracks.edit.user', 'uses' => 'AccountController@MyTracksEdit']);
 Route::post('my_tracks_edit', ['as' => 'update.my.track', 'uses' => 'AccountController@UpdateTrack']);
+Route::get('/favorited_by', ['as' => 'favorited.by', 'uses' => 'TrackController@FavoritedBy']);
 
+//Track routes
 Route::get('/addtrack', ['as' => 'track.add', 'uses' => 'TrackController@add']);
 Route::post('/addtrack', ['as' => 'track.store', 'uses' => 'TrackController@store']);
 Route::get('/overview', ['as' => 'track.overview', 'uses' => 'TrackController@overview']);

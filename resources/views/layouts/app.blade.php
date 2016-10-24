@@ -45,6 +45,7 @@
             <a class="navbar-brand" href="{{url('addtrack') }}">
                 {{config('Add Track', 'Add Track') }}
             </a>
+
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -81,6 +82,18 @@
                                     My tracks
                                 </a>
                             </li>
+                            @if(RoleCheck() == 1)
+                                <li>
+                                    <a href="{{url('/users_admin')}}">
+                                        Manage Users
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/tracks_admin')}}">
+                                        Manage Tracks
+                                    </a>
+                                </li>
+                            @endif
                             <li>
                                 <a href="{{ url('/logout') }}"
                                    onclick="event.preventDefault();

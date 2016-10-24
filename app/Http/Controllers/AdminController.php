@@ -35,9 +35,7 @@ class AdminController extends Controller
     {
         if (Auth::check()) {
             $TrackId = Input::get('id');
-            $id = Auth::id();
-            $role = DB::table('users')->where('id', '=', $id)->first();
-            if ($role->role == 1) {
+            if (RoleCheck()) {
                 $Track = DB::table('tracks')->where('id', '=', $TrackId)->first();
                 $genre = DB::table('genre')->get();
                 $Selected = DB::table('genre_track')->join('genre', 'genre_track.genre_id', '=', 'genre.id')
@@ -64,9 +62,7 @@ class AdminController extends Controller
     public function DeleteTrack()
     {
         if (Auth::check()) {
-            $id = Auth::id();
-            $role = DB::table('users')->where('id', '=', $id)->first();
-            if ($role->role == 1) {
+            if (RoleCheck() == 1) {
 //                $TrackId = Input::get('id');
 //                DB::table('tracks')->where('id', '=', $TrackId)->delete();
 
@@ -83,9 +79,7 @@ class AdminController extends Controller
     public function Users()
     {
         if (Auth::check()) {
-            $id = Auth::id();
-            $role = DB::table('users')->where('id', '=', $id)->first();
-            if ($role->role == 1) {
+            if (RoleCheck() == 1) {
                 $users = DB::table('users')->where('role', '=', '2')->get();
 
                 return view('admin/users', compact('users'));

@@ -54,7 +54,7 @@
                                         {{$favoritecount[$track->id]}}
                                     </td>
                                     <td>
-                                        <a href="#">Favorited by</a>
+                                        <a href="{{Route('favorited.by')}}?id={{$track->id}}">Favorited by</a>
                                     </td>
                                 </tr>
                             @endforeach
