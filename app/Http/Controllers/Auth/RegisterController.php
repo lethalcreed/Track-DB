@@ -68,6 +68,8 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'role' => 2,
             'active' => 1,
+            'last_login' => date("Ymd"),
+            'unlock' => 5,
         ]);
     }
 }
