@@ -25,11 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $id = Auth::id();
-        $active = DB::table('users')->where('id', '=', $id)->first();
-        if($active->active == 1){
-        return view('home');
-        }else{
+        if (ActiveCheck() == 1) {
+            UnlockInit();
+            return view('home');
+        } else {
             Auth::logout();
             return view('errors/unactive');
         }

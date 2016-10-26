@@ -12,8 +12,6 @@ window.addEventListener('input', function () {
             dataType: 'JSON',
             data: {searchInput: searchInput.value, tagInput: tagInput.value},
             success: function (data) {
-                console.log(data);
-                console.log("Ajax call passed");
                 $('#overview').html('');
                 for (var i = 0; i < data.tracks.length; i++) {
                     console.log(data.tracks[i]);

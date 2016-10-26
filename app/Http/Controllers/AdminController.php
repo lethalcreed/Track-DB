@@ -35,7 +35,7 @@ class AdminController extends Controller
     {
         if (Auth::check()) {
             $TrackId = Input::get('id');
-            if (RoleCheck()) {
+            if (RoleCheck() == 1) {
                 $Track = DB::table('tracks')->where('id', '=', $TrackId)->first();
                 $genre = DB::table('genre')->get();
                 $Selected = DB::table('genre_track')->join('genre', 'genre_track.genre_id', '=', 'genre.id')

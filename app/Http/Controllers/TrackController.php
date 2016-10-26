@@ -15,9 +15,17 @@ class TrackController extends Controller
     public function add()
     {
         if (Auth::check()) {
-            $genre = DB::table('genre')->get();
-            return view('track/track_add', compact('genre'));
+            if (UnlockCheck() == 0) {
+                $genre = DB::table('genre')->get();
+                return view('track/track_add', compact('genre'));
+
+            } else {
+                $Remaining = UnlockCheck();
+
+                return view('errors/unlock', compact('Remaining'));
+            }
         } else {
+
             return view('errors/login_to_view');
         }
     }
@@ -35,9 +43,9 @@ class TrackController extends Controller
         } else {
             $version = '';
         }
-        if($request->cover == ''){
+        if ($request->cover == '') {
             $cover = 'http://www.litlat.com/image/no_cover.png';
-        }else{
+        } else {
             $cover = $request->cover;
         }
         if ($request->yt_url !== '') {
@@ -70,7 +78,7 @@ class TrackController extends Controller
         $TrackId = Input::get('id');
         $track = DB::table('tracks')->where('id', '=', $TrackId)->first();
         $genre = DB::table('genre_track')->join('genre', 'genre_track.genre_id', '=', 'genre.id')
-        ->where('genre_track.tracks_id', '=', $TrackId)->first();
+            ->where('genre_track.tracks_id', '=', $TrackId)->first();
 
         //Favorite system
         if (Auth::check()) {
@@ -123,7 +131,8 @@ class TrackController extends Controller
     }
 
 
-    public function FavoritedBy(){
+    public function FavoritedBy()
+    {
         $TrackId = Input::get('id');
 
         $TrackFavorites = DB::table('track_fav')
