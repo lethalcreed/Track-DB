@@ -26,7 +26,6 @@
 		"files": [
 				"app/helpers/AccountHelpers.php"
 		]
-
     },
     "autoload-dev": {
         "classmap": [

@@ -63,8 +63,8 @@ class AdminController extends Controller
     {
         if (Auth::check()) {
             if (RoleCheck() == 1) {
-//                $TrackId = Input::get('id');
-//                DB::table('tracks')->where('id', '=', $TrackId)->delete();
+                $TrackId = Input::get('id');
+                DB::table('tracks')->where('id', '=', $TrackId)->delete();
 
                 return \Redirect::route('tracks.admin')
                     ->with('message', 'The track has been deleted!');
